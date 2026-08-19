@@ -277,7 +277,8 @@
   }
   .chat-header .name { font-weight: 800; font-size: 16px; flex: 1; }
   .chat-body { flex: 1; padding: 16px 12px; overflow-y: auto; }
-  .gift-msg-card { max-width: 260px; background: #fff; border-radius: 14px; overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,0.12); }
+  .gift-msg-row { display: flex; justify-content: flex-end; }
+  .gift-msg-card { width: 270px; background: #fff; border-radius: 14px; overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,0.12); }
   .gift-msg-hero {
     padding: 30px 16px; text-align: center; color: #3A2E52; font-weight: 800; font-size: 15px; line-height: 1.5;
     background: linear-gradient(160deg,#E3D9FF,#FFD9E8);
@@ -285,15 +286,16 @@
   .gift-msg-hero .box-emoji { font-size: 46px; display:block; margin-bottom: 10px; }
   .gift-msg-body { padding: 12px 14px; }
   .gift-msg-body .sent-line { font-size: 13px; font-weight: 700; margin-bottom: 10px; }
-  .gift-msg-prod { display: flex; gap: 8px; align-items: center; }
-  .gift-msg-prod img { width: 40px; height: 40px; border-radius: 8px; object-fit: cover; }
-  .gift-msg-prod .p-name { font-size: 12px; line-height: 1.3; }
-  .gift-msg-prod .p-brand { font-size: 11px; color: var(--text-light); }
+  .gift-msg-prod { display: flex; gap: 8px; align-items: flex-start; padding: 10px; background: var(--bg-gray); border-radius: 10px; }
+  .gift-msg-prod img { width: 46px; height: 46px; border-radius: 8px; object-fit: cover; flex-shrink: 0; }
+  .gift-msg-prod .p-brand { font-size: 11px; color: var(--text-light); font-weight: 700; }
+  .gift-msg-prod .p-name { font-size: 12px; line-height: 1.35; margin: 2px 0; }
+  .gift-msg-prod .p-price { font-size: 12.5px; font-weight: 800; }
   .gift-msg-note { font-size: 11.5px; color: var(--text-sub); margin: 10px 0; line-height: 1.55; }
   .gift-msg-btn { display:block; width: 100%; padding: 11px; background: var(--kakao-yellow); border: none; border-radius: 8px; font-weight: 800; font-size: 13px; text-align: center; margin-bottom: 8px; }
   .gift-msg-link { font-size: 12px; color: var(--text-sub); text-align: center; }
 
-  .chat-bubble-row { display: flex; justify-content: flex-end; margin-top: 14px; }
+  .chat-bubble-row { display: flex; justify-content: flex-end; margin-top: 6px; }
   .chat-bubble { background: var(--kakao-yellow); padding: 10px 14px; border-radius: 14px 14px 2px 14px; font-size: 14px; max-width: 220px; line-height: 1.4; }
   .chat-time { font-size: 10px; color: #5b6b78; align-self: flex-end; margin: 0 6px 2px; }
 
@@ -347,6 +349,12 @@ const FOOD = withMockShipping([
   { brand: `CJ제일제당`, name: `"간식 모음" 오리지널/크리스피 핫도그`, price: 32920, img: `https://img1.kakaocdn.net/thumb/C305x305@2x.fwebp.q82/?fname=https%3A%2F%2Fst.kakaocdn.net%2Fproduct%2Fgift%2Fproduct%2F20260514171404_a9b26345418a445fa4f2668570df9e20.jpg` },
   { brand: `CJ제일제당`, name: `"건강한 식단" 햇반 테이스팅세트 잡곡밥 210G 4종 24개 골라담기`, price: 47100, img: `https://img1.kakaocdn.net/thumb/C305x305@2x.fwebp.q82/?fname=https%3A%2F%2Fst.kakaocdn.net%2Fproduct%2Fgift%2Fproduct%2F20260605144508_398843db1f9c4a6d950937907c01283b.jpg` },
   { brand: `CJ제일제당`, name: `"단백질 충전" 비비고 닭가슴살만두 매니아팩`, price: 31200, img: `https://img1.kakaocdn.net/thumb/C305x305@2x.fwebp.q82/?fname=https%3A%2F%2Fst.kakaocdn.net%2Fproduct%2Fgift%2Fproduct%2F20260707131825_92bf9b7f830445f5beb74972dbdde3ff.png` },
+  { brand: `CJ제일제당`, name: `"골라먹는 김치" CJ 지역김치 2kg 3종 (필동가(서울), 안동헌(경상도), 해남재(전라도))`, price: 30000, img: `https://img1.kakaocdn.net/thumb/C305x305@2x.fwebp.q82/?fname=https%3A%2F%2Fst.kakaocdn.net%2Fproduct%2Fgift%2Fproduct%2F20260702233959_1213e8426f9641eaa7ab7b30bb8137f1.png` },
+  { brand: `CJ제일제당`, name: `생일축하해! CJ제일제당 생일축하 선물세트`, price: 30880, img: `https://img1.kakaocdn.net/thumb/C305x305@2x.fwebp.q82/?fname=https%3A%2F%2Fst.kakaocdn.net%2Fproduct%2Fgift%2Fproduct%2F20260508164807_081e4e976d1141b79f378eee03b1aad4.jpg` },
+  { brand: `CJ제일제당`, name: `상큼한 비타민 음료 맥스셋 레몬비타 120ml 20개 (10입 x 2박스)`, price: 24000, img: `https://img1.kakaocdn.net/thumb/C305x305@2x.fwebp.q82/?fname=https%3A%2F%2Fst.kakaocdn.net%2Fproduct%2Fgift%2Fproduct%2F20260723142758_0b5d49c4afbb409f95d262fa4447f3f6.jpg` },
+  { brand: `CJ제일제당`, name: `[햇반 간편 컵 누룽지] CJ 햇반X오쌀미 파로누룽지 30G 24개 (1BOX)`, price: 42720, img: `https://img1.kakaocdn.net/thumb/C305x305@2x.fwebp.q82/?fname=https%3A%2F%2Fst.kakaocdn.net%2Fproduct%2Fgift%2Fproduct%2F20260325094136_ea014b71835b4c57903dd5cdaf6b35e8.jpg` },
+  { brand: `CJ제일제당`, name: `"소식좌용 작은밥" 햇반 라이스플랜 미니밥 110G 파로 통곡물밥 / 렌틸콩 현미밥 16개 구성`, price: 41600, img: `https://img1.kakaocdn.net/thumb/C305x305@2x.fwebp.q82/?fname=https%3A%2F%2Fst.kakaocdn.net%2Fproduct%2Fgift%2Fproduct%2F20260715201338_d34154343db041899ed438c0e14ab190.png` },
+  { brand: `CJ제일제당`, name: `건강한 식단관리 햇반 테이스팅세트 잡곡밥 130G 3종 40개`, price: 48000, img: `https://img1.kakaocdn.net/thumb/C305x305@2x.fwebp.q82/?fname=https%3A%2F%2Fst.kakaocdn.net%2Fproduct%2Fgift%2Fproduct%2F20260609203710_cf3a2822762d404facc917d711fb63aa.png` },
 ], "food");
 
 const BEAUTY = withMockShipping([
@@ -358,6 +366,12 @@ const BEAUTY = withMockShipping([
   { brand: `에스쁘아`, name: `[선물포장] 에스쁘아 쿠션(3종 중 택1) (+미니 세라마이드 2종)`, price: 23250, img: `https://img1.kakaocdn.net/thumb/C305x305@2x.fwebp.q82/?fname=https%3A%2F%2Fst.kakaocdn.net%2Fproduct%2Fgift%2Fproduct%2F20260803093505_9838ed8c4fe249969780d7597c13fd0c.jpg` },
   { brand: `키핀터치`, name: `키핀터치 영 페어링 파우더 & 브러쉬 SET 3종 (택1) (+파우더 퍼프 증정)`, price: 32900, img: `https://img1.kakaocdn.net/thumb/C305x305@2x.fwebp.q82/?fname=https%3A%2F%2Fst.kakaocdn.net%2Fproduct%2Fgift%2Fproduct%2F20260401092446_1dc530b2215b43b2bfd0f04e7a95a1a3.jpg` },
   { brand: `페리페라`, name: `[선물포장] 페리페라 무드 글로이 틴트 26AD + 선샤인 치크 + [증정] 하트퍼프세트, 싱글섀도우(랜덤)`, price: 14700, img: `https://img1.kakaocdn.net/thumb/C305x305@2x.fwebp.q82/?fname=https%3A%2F%2Fst.kakaocdn.net%2Fproduct%2Fgift%2Fproduct%2F20260716172737_d20c8f7f2468446984b132645fe43f14.jpg` },
+  { brand: `헤라`, name: `[각인] 센슈얼 파우더 매트 리퀴드 (+핑크 헤이즈 립 펜슬, 센티드 핸드크림 30ml 증정)`, price: 36000, img: `https://img1.kakaocdn.net/thumb/C305x305@2x.fwebp.q82/?fname=https%3A%2F%2Fst.kakaocdn.net%2Fproduct%2Fgift%2Fproduct%2F20260818083844_eb9badd234d0491f93a4841cc0014877.jpg` },
+  { brand: `바비브라운`, name: `[BEST] 롱웨어 크림 섀도우 스틱`, price: 53000, img: `https://img1.kakaocdn.net/thumb/C305x305@2x.fwebp.q82/?fname=https%3A%2F%2Fst.kakaocdn.net%2Fproduct%2Fgift%2Fproduct%2F20260630134457_269259d2defb49cea8354441ee0e1702.jpg` },
+  { brand: `톰 포드(뷰티)`, name: `[선물포장] NEW 런웨이 아이 컬러 쿼드`, price: 135000, img: `https://img1.kakaocdn.net/thumb/C305x305@2x.fwebp.q82/?fname=https%3A%2F%2Fst.kakaocdn.net%2Fproduct%2Fgift%2Fproduct%2F20260803163934_0e7454dcf7924e7487dbe5a9f511d36c.jpg` },
+  { brand: `아떼`, name: `"PDRN 착붙비비" 아떼 비건 릴리프 비비크림 35ml 단품 (+선케어 10ml용량 추가증정)`, price: 17900, img: `https://img1.kakaocdn.net/thumb/C305x305@2x.fwebp.q82/?fname=https%3A%2F%2Fst.kakaocdn.net%2Fproduct%2Fgift%2Fproduct%2F20260611184207_98d73611cbba4e6c8af784ec5c7db252.png` },
+  { brand: `페리페라`, name: `단독 하트키링 증정 페리페라 무드 글로이 틴트 26AD + [증정] 글로이 틴트 본품 -01 유리멘탈`, price: 8900, img: `https://img1.kakaocdn.net/thumb/C305x305@2x.fwebp.q82/?fname=https%3A%2F%2Fst.kakaocdn.net%2Fproduct%2Fgift%2Fproduct%2F20260814090407_63b5c36023a34c6abac4da11d3790087.jpg` },
+  { brand: `키핀터치`, name: `키핀터치 영 페어링 파우더 3종 (택1) (+파우더 퍼프 증정)`, price: 24600, img: `https://img1.kakaocdn.net/thumb/C305x305@2x.fwebp.q82/?fname=https%3A%2F%2Fst.kakaocdn.net%2Fproduct%2Fgift%2Fproduct%2F20260401092544_5fdcf602130b47cc853b053109674571.jpg` },
 ], "beauty");
 
 const FASHION = withMockShipping([
@@ -369,11 +383,17 @@ const FASHION = withMockShipping([
   { brand: `지프(JEEP)`, name: `[현대백화점][지프] 8컬러 택1 스몰 로고 지프 볼캡 (GL0GCU092)`, price: 22500, img: `https://img1.kakaocdn.net/thumb/C305x305@2x.fwebp.q82/?fname=https%3A%2F%2Fst.kakaocdn.net%2Fproduct%2Fgift%2Fproduct%2FOPwECGRDycdUbcRBDOeH1g%2FjEl_uD2a21Eb58zfLF21ia-G4Yi8EWBvgTU0jec2rZ4.jpg` },
   { brand: `칼하트`, name: `[국내당일출고] 칼하트 오데사 볼캡 버팔로 메쉬캡 모자 (100289, 100286)`, price: 30000, img: `https://img1.kakaocdn.net/thumb/C305x305@2x.fwebp.q82/?fname=https%3A%2F%2Fst.kakaocdn.net%2Fproduct%2Fgift%2Fproduct%2F20251105150514_15b6f4a8792744ee8726eddf1188904c.jpg` },
   { brand: `뉴에라`, name: `[현대백화점][뉴에라] MLB 볼캡 인기선물 13종 택1 핀치히터 모자`, price: 32400, img: `https://img1.kakaocdn.net/thumb/C305x305@2x.fwebp.q82/?fname=https%3A%2F%2Fst.kakaocdn.net%2Fproduct%2Fgift%2Fproduct%2FOPwECGRDycdUbcRBDOeH1g%2Fnn3f-zoMTHk8wGU-mZcSCdrFP6H0Ot2tLBaxBfgQOAc.jpg` },
+  { brand: `제이에스티나`, name: `[단독/아이유 PICK] 제이에스티나 인기 팔찌/발찌 12종 택1`, price: 62000, img: `https://img1.kakaocdn.net/thumb/C305x305@2x.fwebp.q82/?fname=https%3A%2F%2Fst.kakaocdn.net%2Fproduct%2Fgift%2Fproduct%2F20260120102049_05aef0359ff145a68c661c131d9e6c8b.jpg` },
+  { brand: `마뗑킴`, name: `[단독] ACCORDION WALLET 12종 택1 (+쇼핑백, 메세지카드 증정)`, price: 79200, img: `https://img1.kakaocdn.net/thumb/C305x305@2x.fwebp.q82/?fname=https%3A%2F%2Fst.kakaocdn.net%2Fproduct%2Fgift%2Fproduct%2F20260522201544_b83099a1611b4b34a5fdb515ba1667a4.jpg` },
+  { brand: `플리츠마마`, name: `[단독+포장] '당신의 탄생을 축하하며' 플리츠마마 탄생컬러 드림백 12colors (+메시지카드)`, price: 34930, img: `https://img1.kakaocdn.net/thumb/C305x305@2x.fwebp.q82/?fname=https%3A%2F%2Fst.kakaocdn.net%2Fproduct%2Fgift%2Fproduct%2F20260114102517_b3eacdbb0feb4ca7a13b8ba6e7d94097.jpg` },
+  { brand: `이미스`, name: `"BEST" [선물추천] 이미스 EMIS TONE ON TONE WAPPEN BALL CAP 11종 택1`, price: 49000, img: `https://img1.kakaocdn.net/thumb/C305x305@2x.fwebp.q82/?fname=https%3A%2F%2Fst.kakaocdn.net%2Fproduct%2Fgift%2Fproduct%2F20240605153809_926b7ba6cbda4a21981f873c53289ec8.jpg` },
+  { brand: `질스튜어트`, name: `선물박스포장 [쁘띠다이아몬드] 질스튜어트 양말 선물세트 6종 택1`, price: 18000, img: `https://img1.kakaocdn.net/thumb/C305x305@2x.fwebp.q82/?fname=https%3A%2F%2Fst.kakaocdn.net%2Fproduct%2Fgift%2Fproduct%2F20240925144006_8b1f3e7dc2314767a269ba80ed63eacc.jpg` },
+  { brand: `폭스바겐(시계)`, name: `각인선물 [팔찌추가증정] 폭스바겐 스와로브스키 스톤 사용 메쉬시계 2종 택1`, price: 35900, img: `https://img1.kakaocdn.net/thumb/C305x305@2x.fwebp.q82/?fname=https%3A%2F%2Fst.kakaocdn.net%2Fproduct%2Fgift%2Fproduct%2F20210317103128_2aea69bfb59d4bdf9427099c93f39674.jpg` },
 ], "fashion");
 
 const ALL_PRODUCTS = [...FOOD, ...BEAUTY, ...FASHION];
 
-const FRIEND_NAME = "이수아";
+const FRIEND_NAME = "김민아";
 const won = (n) => n.toLocaleString("ko-KR") + "원";
 
 const MSG_CARDS = [
@@ -386,6 +406,19 @@ const MSG_CARDS = [
 /* ---------------------------------------------------------
    화면 컴포넌트
 --------------------------------------------------------- */
+function GiftProductRow({ product, imgSize = 64 }) {
+  return (
+    <React.Fragment>
+      <img src={product.img} alt="" style={{ width: imgSize, height: imgSize, borderRadius: 10, objectFit: "cover", flexShrink: 0 }} />
+      <div>
+        <div className="gift-info-brand">{product.brand}</div>
+        <div className="gift-info-name">{product.name}</div>
+        <div className="gift-info-price">{won(product.price)}</div>
+      </div>
+    </React.Fragment>
+  );
+}
+
 function Header({ title, onBack, onClose }) {
   return (
     <div className="header">
@@ -603,14 +636,9 @@ function CheckoutScreen({ nav, product }) {
         <div className="checkout-section">
           <h3>선물정보</h3>
           <div className="gift-info-card">
-            <img src={product.img} alt="" />
-            <div>
-              <div className="gift-info-brand">{product.brand}</div>
-              <div className="gift-info-name">{product.name}</div>
-              <div className="gift-info-price">{won(product.price)}</div>
-              <div className="gift-info-ship">🌍 {shippingFee === 0 ? "해외배송 무료" : `해외배송비 ${won(shippingFee)}`} · {product.deliveryDays}</div>
-            </div>
+            <GiftProductRow product={product} imgSize={68} />
           </div>
+          <div className="gift-info-ship" style={{ marginTop: 8 }}>🌍 {shippingFee === 0 ? "해외배송 무료" : `해외배송비 ${won(shippingFee)}`} · {product.deliveryDays}</div>
         </div>
 
         <div className="checkout-section">
@@ -687,13 +715,9 @@ function CompleteScreen({ nav, product }) {
         <div className="sent-gift-card">
           <div className="sent-gift-title">보낸 선물</div>
           <div className="sent-gift-box">
-            <img src={product.img} alt="" />
-            <div>
-              <div className="gift-info-brand">{product.brand}</div>
-              <div className="gift-info-name">{product.name}</div>
-              <div className="gift-info-ship">수량 : 1개</div>
-            </div>
+            <GiftProductRow product={product} imgSize={64} />
           </div>
+          <div className="gift-info-ship" style={{ marginTop: 6 }}>수량 : 1개</div>
         </div>
 
         <div className="complete-btn-row">
@@ -716,33 +740,31 @@ function ChatScreen({ nav, product }) {
         <span>🔍</span><span>📞</span><span>≡</span>
       </div>
       <div className="chat-body">
-        <div className="gift-msg-card">
-          <div className="gift-msg-hero">
-            <span className="box-emoji">🎁</span>
-            당신을 위해<br />준비한 선물이에요
-          </div>
-          <div className="gift-msg-body">
-            <div className="sent-line">{product.brand} 선물을 보냈어요.</div>
-            <div className="gift-msg-prod">
-              <img src={product.img} alt="" />
-              <div>
-                <div className="p-name">{product.name.slice(0, 22)}{product.name.length > 22 ? "…" : ""}</div>
-                <div className="p-brand">{product.brand}</div>
+        <div className="gift-msg-row">
+          <div className="gift-msg-card">
+            <div className="gift-msg-hero">
+              <span className="box-emoji">🎁</span>
+              당신을 위해<br />준비한 선물이에요
+            </div>
+            <div className="gift-msg-body">
+              <div className="sent-line">{product.brand} 선물을 보냈어요.</div>
+              <div className="gift-msg-prod">
+                <GiftProductRow product={product} imgSize={46} />
               </div>
+              <div className="gift-msg-note">
+                배송지를 입력해주세요.<br />
+                입력하지 않으면 선물이 취소됩니다.<br />
+                (배송 주소는 나만 볼 수 있어요.)
+              </div>
+              <button className="gift-msg-btn">주문내역 보기</button>
+              <div className="gift-msg-link">🎁 카카오톡 선물하기</div>
             </div>
-            <div className="gift-msg-note">
-              배송지를 입력해주세요.<br />
-              입력하지 않으면 선물이 취소됩니다.<br />
-              (배송 주소는 나만 볼 수 있어요.)
-            </div>
-            <button className="gift-msg-btn">주문내역 보기</button>
-            <div className="gift-msg-link">🎁 카카오톡 선물하기</div>
           </div>
         </div>
 
         <div className="chat-bubble-row">
           <span className="chat-time">방금</span>
-          <div className="chat-bubble">{FRIEND_NAME}님, 해외에서도 마음은 가까이! 축하해요 🎉</div>
+          <div className="chat-bubble">{FRIEND_NAME}님! 해외에서도 생일 축하해요!</div>
         </div>
         <div className="quick-reply-row">
           <div className="quick-reply-chip">🎂 축하하기</div>
