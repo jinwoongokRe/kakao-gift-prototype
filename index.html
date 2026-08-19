@@ -112,6 +112,24 @@
   .home-section-title { padding: 0 16px; font-size: 15px; font-weight: 800; margin: 20px 0 10px; }
   .home-note { padding: 0 16px; font-size: 12.5px; color: var(--text-light); line-height: 1.6; }
 
+  .home-country-row { display: flex; gap: 8px; padding: 0 16px; margin-top: 14px; }
+  .home-country-chip {
+    flex: 1; padding: 10px 6px; border-radius: 10px; border: 1px solid var(--border);
+    background: #fff; font-size: 13px; font-weight: 700; color: var(--text-main); cursor: pointer;
+  }
+  .home-country-chip:hover { background: var(--bg-gray); }
+
+  .home-feature-row { display: flex; flex-direction: column; gap: 8px; padding: 16px; margin-top: 6px; }
+  .home-feature {
+    display: flex; align-items: center; gap: 8px; font-size: 12.5px; color: var(--text-sub); font-weight: 600;
+  }
+  .home-feature span { font-size: 15px; }
+
+  .home-more-btn {
+    display: block; width: calc(100% - 32px); margin: 4px 16px 4px; padding: 12px; border-radius: 10px;
+    border: 1px solid var(--border); background: #fff; font-size: 13.5px; font-weight: 700; color: var(--text-main); cursor: pointer;
+  }
+
   /* bottom nav */
   .bottom-nav {
     display: flex; border-top: 1px solid var(--border);
@@ -184,7 +202,7 @@
     display: flex; flex-direction: column; align-items: center; gap: 2px; width: 40px;
     background: none; border: none; cursor: pointer; color: var(--text-sub); font-size: 10px;
   }
-  .util-btn .ico { font-size: 19px; }
+  .util-btn .ico { font-size: 19px; display: inline-block; transition: transform 0.15s ease; }
   .action-btn {
     flex: 1; height: 46px; display: flex; align-items: center; justify-content: center;
     border: none; border-radius: 12px; padding: 0 4px; font-size: 13.5px; font-weight: 800;
@@ -325,6 +343,7 @@ const { useState } = React;
    실제 gift.kakao.com 상품명·브랜드·가격·이미지)
 --------------------------------------------------------- */
 const COUNTRIES = ["미국", "일본", "유럽"];
+const COUNTRY_FLAG = { "미국": "🇺🇸", "일본": "🇯🇵", "유럽": "🇪🇺" };
 const SHIPPING_FEE_BY_COUNTRY = { "미국": 7000, "유럽": 7000, "일본": 3000 };
 const DELIVERY_DAYS = ["7~10일 소요", "10~14일 소요", "5~7일 소요"];
 
@@ -474,7 +493,7 @@ function Header({ title, onBack, onClose }) {
 }
 
 function HomeScreen({ nav }) {
-  const lnbTabs = ["포미", "홈", "랭킹", "글로벌", "위시나우", "가벼운선물", "맛있는선물", "시원한선물", "명품선물", "둘러보기"];
+  const lnbTabs = ["ForMe", "홈", "랭킹", "글로벌", "위시나우", "가벼운선물", "맛있는선물", "시원한선물", "명품선물", "둘러보기"];
   return (
     <div className="screen">
       <Header title="카카오톡 선물하기" />
@@ -484,7 +503,7 @@ function HomeScreen({ nav }) {
             <button
               key={t}
               className={"lnb-item" + (t === "홈" ? " active" : "") + (t === "글로벌" ? " global" : "")}
-              onClick={() => { if (t === "글로벌") nav.push("global-list"); }}
+              onClick={() => { if (t === "글로벌") nav.goGlobal(); }}
             >
               {t}
             </button>
@@ -494,15 +513,30 @@ function HomeScreen({ nav }) {
         <div className="home-hero">
           <h2>해외로 보내는 선물, 이제 카톡으로 🌍</h2>
           <p>미국·일본·유럽까지 배송되는 인기 브랜드 상품을<br />새로 생긴 글로벌 카테고리에서 만나보세요.</p>
-          <button onClick={() => nav.push("global-list")}>글로벌 카테고리 보러가기</button>
+          <button onClick={() => nav.goGlobal()}>글로벌 카테고리 보러가기</button>
+        </div>
+
+        <div className="home-country-row">
+          {COUNTRIES.map((c) => (
+            <button key={c} className="home-country-chip" onClick={() => nav.goGlobal(c)}>
+              {COUNTRY_FLAG[c]} {c}
+            </button>
+          ))}
+        </div>
+
+        <div className="home-feature-row">
+          <div className="home-feature"><span>🌍</span>해외배송 가능 상품만 모아보기</div>
+          <div className="home-feature"><span>💳</span>기존 결제수단 그대로 이용</div>
+          <div className="home-feature"><span>🏷️</span>실제 인기 브랜드 42종</div>
         </div>
 
         <div className="home-section-title">이런 상품이 있어요</div>
         <div className="product-grid">
-          {ALL_PRODUCTS.slice(0, 4).map((p) => (
+          {ALL_PRODUCTS.slice(0, 6).map((p) => (
             <ProductCard key={p.id} p={p} onClick={() => { nav.setProduct(p); nav.push("detail"); }} />
           ))}
         </div>
+        <button className="home-more-btn" onClick={() => nav.goGlobal()}>글로벌 상품 더보기 →</button>
         <div className="home-note">* 이 화면은 시연용 목업이며, 상단 "글로벌" 탭 진입 흐름을 보여주기 위한 간이 홈 화면입니다.</div>
       </div>
 
@@ -541,8 +575,8 @@ function ProductCard({ p, onClick }) {
   );
 }
 
-function GlobalListScreen({ nav }) {
-  const [country, setCountry] = useState("전체");
+function GlobalListScreen({ nav, initialCountry }) {
+  const [country, setCountry] = useState(initialCountry || "전체");
   const [category, setCategory] = useState("전체");
 
   const filtered = ALL_PRODUCTS.filter((p) => {
@@ -591,6 +625,7 @@ function GlobalListScreen({ nav }) {
 }
 
 function DetailScreen({ nav, product }) {
+  const [wished, setWished] = useState(false);
   if (!product) return null;
   return (
     <div className="screen">
@@ -614,7 +649,10 @@ function DetailScreen({ nav, product }) {
 
       <div className="action-bar">
         <div className="util-btn-group">
-          <button className="util-btn"><span className="ico">🤍</span>찜</button>
+          <button className="util-btn" onClick={() => setWished((w) => !w)}>
+            <span className="ico" style={{ transform: wished ? "scale(1.1)" : "scale(1)" }}>{wished ? "❤️" : "🤍"}</span>
+            찜
+          </button>
           <button className="util-btn"><span className="ico">↗</span>공유</button>
         </div>
         <button className="action-btn tome">나에게 선물</button>
@@ -830,6 +868,7 @@ function ChatScreen({ nav, product }) {
 function App() {
   const [stack, setStack] = useState(["home"]);
   const [product, setProduct] = useState(null);
+  const [initialCountry, setInitialCountry] = useState("전체");
   const screen = stack[stack.length - 1];
 
   const nav = {
@@ -837,11 +876,12 @@ function App() {
     pop: () => setStack((prev) => (prev.length > 1 ? prev.slice(0, -1) : prev)),
     reset: () => setStack(["home"]),
     setProduct,
+    goGlobal: (country) => { setInitialCountry(country || "전체"); setStack((prev) => [...prev, "global-list"]); },
   };
 
   let view;
   if (screen === "home") view = <HomeScreen nav={nav} />;
-  else if (screen === "global-list") view = <GlobalListScreen nav={nav} />;
+  else if (screen === "global-list") view = <GlobalListScreen nav={nav} initialCountry={initialCountry} />;
   else if (screen === "detail") view = <DetailScreen nav={nav} product={product} />;
   else if (screen === "checkout") view = <CheckoutScreen nav={nav} product={product} />;
   else if (screen === "complete") view = <CompleteScreen nav={nav} product={product} />;
