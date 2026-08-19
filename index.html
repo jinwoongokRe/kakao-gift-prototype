@@ -271,7 +271,7 @@
   }
 
   /* ---- COMPLETE ---- */
-  .complete-wrap { flex: 1; display: flex; flex-direction: column; align-items: center; padding: 40px 20px 20px; text-align: center; }
+  .complete-wrap { flex: 1; min-height: 0; overflow-y: auto; display: flex; flex-direction: column; align-items: center; padding: 40px 20px 32px; text-align: center; }
   .confetti { font-size: 40px; margin-bottom: 6px; }
   .friend-avatar {
     width: 72px; height: 72px; border-radius: 50%; background: linear-gradient(135deg,#FFD86B,#FF9A6B);
@@ -791,7 +791,7 @@ function CompleteScreen({ nav, product }) {
       <div className="complete-wrap">
         <div className="confetti">🎊</div>
         <div className="friend-avatar">🧳</div>
-        <div className="complete-title"><mark>{FRIEND_NAME}</mark>(글로벌)에게<br />선물을 보냈습니다.</div>
+        <div className="complete-title"><mark>{FRIEND_NAME}님</mark>에게<br />선물을 보냈습니다.</div>
         <div className="complete-sub">배송지 미입력 시 결제가 취소됩니다.</div>
 
         <div className="wish-banner"><span>💗 위시가 실현되는 더블 할인!</span><span>›</span></div>
